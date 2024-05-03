@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
 const Register = () => {
-    return (
-        <div>
-                <div className="hero min-h-screen bg-base-200">
+  return (
+    <div>
+      <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Register now!</h1>
@@ -40,13 +40,18 @@ const Register = () => {
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Login</button>
               </div>
-              <p>Already have an account? <Link to={'/login'} className="underline font-semibold">Login</Link></p>
+              <p>
+                Already have an account?{" "}
+                <Link to={"/login"} className="underline font-semibold">
+                  Login
+                </Link>
+              </p>
             </form>
           </div>
         </div>
       </div>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Register;
