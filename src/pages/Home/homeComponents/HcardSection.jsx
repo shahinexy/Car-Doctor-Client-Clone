@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const HcardSection = () => {
     const [datas, setDatas] = useState([])
 
     useEffect(()=>{
-        fetch('datas.json')
+        fetch('http://localhost:5000/services')
         .then(res => res.json())
         .then(data => setDatas(data))
     },[])
@@ -20,6 +21,7 @@ const HcardSection = () => {
                         <img src={data.img} alt="" />
                         <h2 className="text-2xl font-bold">{data.title}</h2> 
                         <p>{data.description.slice(0, 170)}...</p>
+                        <Link to={`/checkOut/${data._id}`}><button className="btn">Check out</button></Link>
                     </div>)
                 }
             </div>
