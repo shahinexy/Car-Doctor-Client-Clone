@@ -1,8 +1,9 @@
+import HcardSection from "./homeComponents/HcardSection";
 
 const Home = () => {
     return (
         <div>
-            home
+            <HcardSection></HcardSection>
         </div>
     );
 };
