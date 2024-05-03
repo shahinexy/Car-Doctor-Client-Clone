@@ -1,12 +1,23 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { authContex } from "../AuthProvider/AuthProvider";
 
 const NavBar = () => {
+  const { user, logOut } = useContext(authContex);
 
-    const navItems = <>
-        <li><NavLink to={'/'}>Order</NavLink></li>
-        <li><NavLink to={'/orderReview'}>Order Review</NavLink></li>
-        <li><NavLink to={'/'}>Manage Inventory</NavLink></li>
+  const navItems = (
+    <>
+      <li>
+        <NavLink to={"/"}>Order</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/orderReview"}>Order Review</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/"}>Manage Inventory</NavLink>
+      </li>
     </>
+  );
 
   return (
     <div>
@@ -44,12 +55,16 @@ const NavBar = () => {
             <a className="btn btn-ghost text-xl">daisyUI</a>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1">
-            {navItems}
-            </ul>
+            <ul className="menu menu-horizontal px-1">{navItems}</ul>
           </div>
           <div className="navbar-end">
-            <Link to={'/login'} className="btn">Login</Link>
+            {user ? (
+              <button onClick={() => logOut()} className="btn">Logout</button>
+            ) : (
+              <Link to={"/login"} className="btn">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </nav>
