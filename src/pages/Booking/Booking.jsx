@@ -14,6 +14,21 @@ const Booking = () => {
       });
   }, [user]);
 
+  const handleDelete = id =>{
+    console.log(id);
+    fetch(`http://localhost:5000/checkOut/${id}`, {
+      method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      if(data.deletedCount >0){
+        const remaining = booking.filter(data => data._id !== id);
+        setBooking(remaining)
+      }
+    })
+  }
+
   return (
     <div>
       this is booking
@@ -33,7 +48,7 @@ const Booking = () => {
               {/* row 1 */}
               {booking.map((data) => (
                 <tr key={data._id}>
-                  <th>1</th>
+                  <th><button onClick={() => handleDelete(data._id)} className="btn btn-sm btn-circle bg-black text-white font-semibold">X</button></th>
                   <td>{data.name}</td>
                   <td>{data.title}</td>
                   <td>{data.price}</td>
