@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authContex } from "../../AuthProvider/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
   const {loginUser} = useContext(authContex)
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -14,7 +17,18 @@ const Login = () => {
   const onSubmit = (data) =>{
     console.log(data)
     loginUser(data.email, data.pass)
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res)
+      
+      const user = {email: data.email}
+      axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+      .then(res => {
+        console.log(res.data)
+        if(res.data.success){
+          navigate(location?.state ? location.state : '/')
+        }
+      })
+    })
     .catch(data => console.log(data))
   };
   return (
