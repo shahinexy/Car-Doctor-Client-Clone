@@ -1,11 +1,13 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { authContex } from "../../AuthProvider/AuthProvider";
+// import { authContex } from "../../AuthProvider/AuthProvider";
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const {loginUser} = useContext(authContex)
+  const {loginUser} = useAuth()
+  // const {loginUser} = useContext(authContex)
   const location = useLocation()
   const navigate = useNavigate()
 
