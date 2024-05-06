@@ -1,13 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { authContex } from "../../AuthProvider/AuthProvider";
-import axios from "axios";
+// import { authContex } from "../../AuthProvider/AuthProvider";
+// import axios from "axios";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Booking = () => {
-  const { user } = useContext(authContex);
+  const {user} = useAuth()
+  // const { user } = useContext(authContex);
   const [booking, setBooking] = useState([]);
 
+  const axiosSecure = useAxiosSecure()
+
   useEffect(() => {
-    axios.get(`http://localhost:5000/checkOut?email=${user?.email}`, {withCredentials: true})
+    axiosSecure.get(`/checkOut?email=${user?.email}`)
     .then(res =>{
       console.log(res.data);
       setBooking(res.data)
@@ -19,7 +24,7 @@ const Booking = () => {
     //     console.log(data);
     //     setBooking(data);
     //   });
-  }, [user]);
+  }, [user, axiosSecure]);
 
   const handleDelete = (id) => {
     console.log(id);
