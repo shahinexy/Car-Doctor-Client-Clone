@@ -6,37 +6,58 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "./../firebase/Firebase.config";
+import axios from "axios";
 
 export const authContex = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loader, setLoader] = useState(true)
+  const [loader, setLoader] = useState(true);
 
   // create euser
   const createUser = (email, pass) => {
-    setLoader(true)
+    setLoader(true);
     return createUserWithEmailAndPassword(auth, email, pass);
   };
 
-  const loginUser = (email, pass) =>{
-    setLoader(true)
-    return signInWithEmailAndPassword(auth, email, pass)
-  }
+  const loginUser = (email, pass) => {
+    setLoader(true);
+    return signInWithEmailAndPassword(auth, email, pass);
+  };
 
-  const logOut = () =>{
-    return signOut(auth)
-  }
+  const logOut = () => {
+    return signOut(auth);
+  };
 
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
+      const logedUser = { email: userEmail };
       setUser(currentUser);
-      setLoader(false)
+      setLoader(false);
+      console.log(currentUser);
+      // if user exist then use a token
+      if (currentUser) {
+        axios
+          .post("http://localhost:5000/jwt", logedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("token responce", res.data);
+          });
+      } else {
+        axios.post("http://localhost:5000/logout", logedUser, {
+          withCredentials: true,
+        })
+        .then(res => {
+          console.log(res.data);
+        })
+      }
     });
     return () => subscribe();
-  }, []);
+  }, [user]);
 
-  const authInfo = { user, createUser, loginUser, logOut,loader };
+  const authInfo = { user, createUser, loginUser, logOut, loader };
   return (
     <div>
       <authContex.Provider value={authInfo}>{children}</authContex.Provider>
