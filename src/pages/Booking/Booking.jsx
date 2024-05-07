@@ -18,7 +18,7 @@ const Booking = () => {
       setBooking(res.data)
     })
 
-    // fetch(`http://localhost:5000/checkOut?email=${user?.email}`)
+    // fetch(`https://car-doctor-server-shahins-projects-02817491.vercel.app/checkOut?email=${user?.email}`)
     //   .then((res) => res.json())
     //   .then((data) => {
     //     console.log(data);
@@ -28,7 +28,7 @@ const Booking = () => {
 
   const handleDelete = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/checkOut/${id}`, {
+    fetch(`https://car-doctor-server-shahins-projects-02817491.vercel.app/checkOut/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -42,7 +42,7 @@ const Booking = () => {
   };
 
   const handleConfirm = (id) => {
-    fetch(`http://localhost:5000/checkOut/${id}`, {
+    fetch(`https://car-doctor-server-shahins-projects-02817491.vercel.app/checkOut/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

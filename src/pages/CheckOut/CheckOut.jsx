@@ -13,7 +13,7 @@ const CheckOut = () => {
 
   const onSubmit = data =>{
     const datas = {...data, title: loaderData.title};
-    fetch('http://localhost:5000/checkOut', {
+    fetch('https://car-doctor-server-shahins-projects-02817491.vercel.app/checkOut', {
         method: 'POST',
         headers: {
             'content-type' : 'application/json'
